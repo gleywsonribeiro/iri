@@ -22,29 +22,37 @@
     </ui:define>
 
     <ui:define name="content">
-        <div class="ui-g ui-fluid">
-            <p:growl autoUpdate="true"/>
-            <div class="ui-g-12 ui-md-6">
-                <div class="card">
-                    <h1 class="centerText">Análise de Dados</h1>
-                </div>
-
-                <ui:repeat value="#{dashBoardController.graficos}" var="grafico">
-                    <div class="card"> 
-                        <p:chart id="pie" type="pie" model="#{grafico}" responsive="true" style="height: 500px"/>
+        <h:form rendered="#{not loginController.administrador}">
+            <h:panelGrid>
+                <p>Olá, seja bem-vindo.</p>
+                <p>Use o menu lateral para realizar a pesquisa.</p>
+            </h:panelGrid>
+        </h:form>
+        <h:form rendered="#{loginController.administrador}">
+            <div class="ui-g ui-fluid">
+                <p:growl autoUpdate="true"/>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="card">
+                        <h1 class="centerText">Análise de Dados</h1>
                     </div>
-                </ui:repeat>
-            </div>
 
-            <div class="ui-g-12 ui-md-6">
-                <div class="card">
-                    <h1 class="centerText">Análise de Empatia</h1>
+                    <ui:repeat value="#{dashBoardController.graficos}" var="grafico">
+                        <div class="card"> 
+                            <p:chart id="pie" type="pie" model="#{grafico}" responsive="true" style="height: 500px"/>
+                        </div>
+                    </ui:repeat>
                 </div>
-                <div class="card"> 
-                    <p:chart id="pie" type="pie" model="#{dashBoardController.graficoEmpatia}" responsive="true" style="height: 500px"/>
+
+                <div class="ui-g-12 ui-md-6">
+                    <div class="card">
+                        <h1 class="centerText">Análise de Empatia</h1>
+                    </div>
+                    <div class="card"> 
+                        <p:chart id="pie" type="pie" model="#{dashBoardController.graficoEmpatia}" responsive="true" style="height: 500px"/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </h:form>
     </ui:define>
 
 </ui:composition>

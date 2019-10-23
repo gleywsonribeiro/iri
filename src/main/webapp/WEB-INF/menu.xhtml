@@ -19,8 +19,9 @@
                             <p:menuitem id="pesquisa" value="Criar Pesquisa" icon="&#xE890;" outcome="/pesquisa/cadastro" />
                             <p:menuitem id="pergunta" value="Criar Perguntas" icon="&#xe8af;" outcome="/pesquisa/perguntas" />
                             <p:menuitem id="pergunta_edt" value="Ajustar Perguntas" icon="&#xE890;" outcome="/pesquisa/perguntas_edicao" />
+                            <p:menuitem id="avaliacoes" value="Avaliações" icon="&#128203;" outcome="/avaliacao/avaliacoes" />
                         </p:submenu>
-                        <p:menuitem id="analise" value="Realizar análise" icon="&#xE24B;" outcome="/dados/analise"/>
+                        <p:menuitem id="analise" value="Realizar análise" icon="&#xE24B;" outcome="/dados/analise" rendered="#{loginController.administrador}"/>
                     </pu:menu>
                 </div>
             </div>

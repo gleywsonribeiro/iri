@@ -31,6 +31,8 @@ import javax.faces.context.FacesContext;
 public class AvaliacaoController {
 
     private Pesquisa pesquisa;
+    private List<Avaliacao> avaliacoes;
+    
     private Avaliacao avaliacao;
     @EJB
     private PesquisaFacade pesquisaFacade;
@@ -40,28 +42,28 @@ public class AvaliacaoController {
         
     private List<Resposta> respostas;
 
-    @PostConstruct
-    public void init() {
-        String codigo = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cod_pesquisa");
-        pesquisa = pesquisaFacade.find(Long.parseLong(codigo));
-        avaliacao = new Avaliacao();
-        avaliacao.setPesquisa(pesquisa);
-        
-        respostas = new ArrayList<Resposta>();
-        
-        for (Pergunta p : avaliacao.getPesquisa().getPerguntas()) {
-            Resposta resposta = new Resposta();
-            resposta.setAvaliacao(avaliacao);
-            resposta.setPergunta(p);
-            avaliacao.getRespostas().add(resposta);
-//            respostas.add(resposta);
-            
-        }
-        
-    }
+//    @PostConstruct
+//    public void init() {
+//        String codigo = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("cod_pesquisa");
+//        pesquisa = pesquisaFacade.find(Long.parseLong(codigo));
+//        avaliacao = new Avaliacao();
+//        avaliacao.setPesquisa(pesquisa);
+//        
+//        respostas = new ArrayList<Resposta>();
+//        
+//        for (Pergunta p : avaliacao.getPesquisa().getPerguntas()) {
+//            Resposta resposta = new Resposta();
+//            resposta.setAvaliacao(avaliacao);
+//            resposta.setPergunta(p);
+//            avaliacao.getRespostas().add(resposta);
+////            respostas.add(resposta);
+//            
+//        }
+//        
+//    }
 
     public AvaliacaoController() {
-
+        avaliacoes = new ArrayList<Avaliacao>();
     }
 
     public Pesquisa getPesquisa() {
@@ -95,5 +97,14 @@ public class AvaliacaoController {
         System.out.println("Chamou");
         return "concluido?faces-redirect=true";
     }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void atualizaAvaliacoesPorPesquisa() {
+        avaliacoes = avaliacaoFacade.getAvaliacoesPorPesquisa(pesquisa);
+    }
+    
     
 }

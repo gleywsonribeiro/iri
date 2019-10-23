@@ -38,7 +38,7 @@ public class LoginController implements Serializable {
             usuario.setNome("Administrador");
             httpSession.setAttribute("currentUser", usuario);
             return "dashboard?faces-redirect=true";
-        } else if (usuario.getLogin().equals("visitante") && usuario.getSenha().equals("123")) {
+        } else if (usuario.getLogin().equals("empatia") && usuario.getSenha().equals("empatia")) {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession httpSession = (HttpSession) context.getExternalContext().getSession(false);
             //this.usuario = user;

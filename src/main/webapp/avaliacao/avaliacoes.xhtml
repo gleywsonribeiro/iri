@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Misc</ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="formEdicao">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left colum -->
+                    <div class="card card-w-title">
+                        <p:messages autoUpdate="true" closable="true" />
+                        <h1>
+                            <h:outputText value="Pesquisas" />
+                        </h1>
+
+                        <p:dataTable value="#{pesquisaController.pesquisas}" var="pesquisa">
+                            <p:column headerText="Pesquisa">
+                                <p:commandLink value="#{pesquisa.descricao}" actionListener="#{avaliacaoController.atualizaAvaliacoesPorPesquisa()}" update="formEdicao:listaAvaliacao">
+                                    <f:setPropertyActionListener value="#{pesquisa}" target="#{avaliacaoController.pesquisa}"  />
+                                </p:commandLink>
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:dataTable id="listaAvaliacao" value="#{avaliacaoController.avaliacoes}" var="avaliacao">
+                            <p:column headerText="código">
+                                <h:outputText value="#{avaliacao.id}"/>
+                            </p:column>
+                            <p:column headerText="Data/hora">
+                                <h:outputText value="#{avaliacao.dataHora}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Pesquisa">
+                                <h:outputText value="#{avaliacao.pesquisa.descricao}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="fa fa-trash">
+                                    <!--<f:setPropertyActionListener-->
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                    </div>
+
+
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Right colum -->
+
+                </div>
+            </div>
+
+        </h:form>    
+    </ui:define>
+
+</ui:composition>
