@@ -19,17 +19,15 @@
                             <h:outputText value="Pesquisas" />
                         </h1>
 
-                        <p:dataTable value="#{pesquisaController.pesquisas}" var="pesquisa">
-                            <p:column headerText="Pesquisa">
-                                <p:commandLink value="#{pesquisa.descricao}" actionListener="#{avaliacaoController.atualizaAvaliacoesPorPesquisa()}" update="formEdicao:listaAvaliacao">
-                                    <f:setPropertyActionListener value="#{pesquisa}" target="#{avaliacaoController.pesquisa}"  />
-                                </p:commandLink>
-                            </p:column>
+                        <p:selectOneMenu id="pesquisa" value="#{avaliacaoBean.pesquisa}" style="margin-bottom:10px;"
+                                         converter="pesquisaConverter">
+                            <f:selectItem itemLabel="Selecione"/>
+                            <f:selectItems var="pesquisa" value="#{pesquisaController.pesquisas}" itemLabel="#{pesquisa.descricao}" itemValue="#{pesquisa}"/>
+                            <p:ajax event="change" listener="#{avaliacaoBean.atualizaAvaliacoesPorPesquisa()}" update="formEdicao:listaAvaliacao"/>
+                        </p:selectOneMenu>
 
-                        </p:dataTable>
-
-                        <p:dataTable id="listaAvaliacao" value="#{avaliacaoController.avaliacoes}" var="avaliacao">
-                            <p:column headerText="código">
+                        <p:dataTable id="listaAvaliacao" value="#{avaliacaoBean.avaliacoes}" var="avaliacao">
+                            <p:column headerText="código" style="width: 100px">
                                 <h:outputText value="#{avaliacao.id}"/>
                             </p:column>
                             <p:column headerText="Data/hora">
@@ -37,12 +35,9 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                                 </h:outputText>
                             </p:column>
-                            <p:column headerText="Pesquisa">
-                                <h:outputText value="#{avaliacao.pesquisa.descricao}"/>
-                            </p:column>
-                            <p:column>
-                                <p:commandButton icon="fa fa-trash">
-                                    <!--<f:setPropertyActionListener-->
+                            <p:column style="width: 50px; text-align: center">
+                                <p:commandButton icon="fa fa-trash" action="#{avaliacaoBean.remover()}" update="formEdicao:listaAvaliacao">
+                                    <f:setPropertyActionListener target="#{avaliacaoBean.avaliacao}" value="#{avaliacao}"/>
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>

@@ -26,7 +26,8 @@ WHERE  pes.id = av.pesquisa_id
                             AND r.avaliacao_id = av.id 
                             AND r.pergunta_id = p.id 
                             AND r.opcao_id = o.id 
-                            AND o.id = 1) 
+                            --AND o.id = 1
+                    ) 
        
 GROUP  BY qualificador
 -- http://www.dpriver.com/pp/sqlformat.htm
