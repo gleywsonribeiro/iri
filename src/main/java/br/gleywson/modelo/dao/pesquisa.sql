@@ -31,3 +31,14 @@ WHERE  pes.id = av.pesquisa_id
        
 GROUP  BY qualificador
 -- http://www.dpriver.com/pp/sqlformat.htm
+
+select av.id, av.datahora, r.id, perg.descricao, op.descricao
+from avaliacao av, resposta r, pergunta perg, opcao op
+where r.avaliacao_id = av.id
+and av.id = 1036
+and r.pergunta_id = perg.id
+and r.opcao_id = op.id
+order by av.id, perg.descricao, op.descricao
+
+
+select * from resposta where id = 1073
