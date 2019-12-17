@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  *
@@ -39,6 +40,7 @@ public class PesquisaController {
             pesquisaFacade.edit(pesquisa);
             JsfUtil.addMessage("Atualizado com sucesso!");
         }
+        pesquisa = new Pesquisa();
     }
 
     public Pesquisa getPesquisa() {
@@ -54,6 +56,13 @@ public class PesquisaController {
         return this.pesquisas;
     }
     
-    
+    public void remover() {
+        try {
+            pesquisaFacade.remove(pesquisa);
+            JsfUtil.addMessage("Removido com sucesso!");
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage("Existem avaliações para esta pesquisa.");
+        }
+    }
     
 }

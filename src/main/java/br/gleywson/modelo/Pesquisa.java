@@ -7,6 +7,7 @@ package br.gleywson.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Pesquisa implements Serializable {
 
-    @OneToMany(mappedBy = "pesquisa")
+    @OneToMany(mappedBy = "pesquisa", cascade = CascadeType.REMOVE)
     private List<Pergunta> perguntas;
 
     private static final long serialVersionUID = 1L;

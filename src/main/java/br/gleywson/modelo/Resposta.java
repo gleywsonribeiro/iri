@@ -24,13 +24,13 @@ public class Resposta implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Pergunta pergunta;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Opcao opcao;
     
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Avaliacao avaliacao;
     
     private int valor;

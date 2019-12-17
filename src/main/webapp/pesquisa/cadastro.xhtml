@@ -9,12 +9,13 @@
 
     <ui:define name="content">
 
-        <h:form>
+        <h:form id="cadastro">
+            <p:messages autoUpdate="true" closable="true" />
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-lg-6">
                     <!-- Left colum -->
+
                     <div class="card card-w-title">
-                        <p:messages autoUpdate="true" closable="true" />
                         <h1>Cadastro de Pesquisa</h1>
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
                             <h:panelGroup styleClass="md-inputfield">
@@ -38,8 +39,8 @@
 
                 </div>
                 <div class="ui-g-12 ui-lg-6">
-                    <h:form>
-                        <p:dataTable value="#{pesquisaController.pesquisas}" var="pesquisa">
+                    <h:form id="dados">
+                        <p:dataTable id="table" value="#{pesquisaController.pesquisas}" var="pesquisa">
                             <f:facet name="header">Pesquisas</f:facet>
                             <p:column headerText="Código">
                                 <h:outputText value="#{pesquisa.id}"/>
@@ -48,11 +49,22 @@
                                 <h:outputText value="#{pesquisa.descricao}"/>
                             </p:column>
                             <p:column style="text-align: center">
-                                <h:link  value="Ajustar" outcome="edit_perguntas">
-                                    <f:param value="#{pesquisa.id}" name="pesquisa_id"/>
-                                </h:link>
+                                <p:commandButton icon="fa fa-edit" update="cadastro" process="@this">
+                                    <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <p:commandButton icon="fa fa-trash" action="#{pesquisaController.remover()}" update="cadastro:dados:table" process="@this">
+                                    <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
+                                    <p:confirm header="Alerta" message="Excluir a pesquisa remove todas as perguntas associadas a ela. Confirma a exclusão?" icon="fa fa-exclamation-triangle" />
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+                        </p:confirmDialog>
                     </h:form>
                 </div>
             </div>

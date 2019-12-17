@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.primefaces</groupId>
-    <artifactId>template</artifactId>
+    <artifactId>iri</artifactId>
     <version>1.1</version>
     <packaging>war</packaging>
 
-    <name>template</name>
+    <name>iri</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

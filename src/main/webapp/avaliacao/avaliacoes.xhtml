@@ -36,8 +36,11 @@
                                 </h:outputText>
                             </p:column>
                             <p:column style="width: 50px; text-align: center">
+                                <p:commandButton icon="fa fa-pencil"/>
+                            </p:column>
+                            <p:column style="width: 50px; text-align: center">
                                 <p:commandButton icon="fa fa-trash" action="#{avaliacaoBean.remover()}" update="formEdicao:listaAvaliacao">
-                                    <f:setPropertyActionListener target="#{avaliacaoBean.avaliacao}" value="#{avaliacao}"/>
+                                    <f:setPropertyActionListener target="#{avaliacaoBean.avaliacao}" value="#{avaliacao}" />
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
