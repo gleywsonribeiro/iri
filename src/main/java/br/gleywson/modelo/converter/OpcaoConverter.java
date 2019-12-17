@@ -27,7 +27,7 @@ public class OpcaoConverter implements Converter {
 
     private OpcaoFacade getFacade() {
         try {
-            return (OpcaoFacade) new InitialContext().lookup("java:global/template/OpcaoFacade"); //[java:global/template/PerguntaFacade!br.gleywson.modelo.dao.PerguntaFacade, java:global/template/PerguntaFacade]
+            return (OpcaoFacade) new InitialContext().lookup("java:global/iri/OpcaoFacade"); //[java:global/template/PerguntaFacade!br.gleywson.modelo.dao.PerguntaFacade, java:global/template/PerguntaFacade]
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex);
         }

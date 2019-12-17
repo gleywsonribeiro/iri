@@ -18,7 +18,7 @@
                         <h1>
                             <h:outputText value="Pesquisas" />
                         </h1>
-                        <p:dataTable value="#{pesquisaController.pesquisas}" var="pesquisa">
+                        <p:dataTable value="#{pesquisaController.pesquisasAtivas}" var="pesquisa" emptyMessage="Não há pesquisas ativas.">
                             <p:column headerText="Pesquisa">
                                 <h:commandLink value="#{pesquisa.descricao}" action="avaliacao">
                                     <f:param value="#{pesquisa.id}" name="cod_pesquisa"/>

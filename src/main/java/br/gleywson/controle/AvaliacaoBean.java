@@ -5,6 +5,7 @@
  */
 package br.gleywson.controle;
 
+import br.gleywson.jsf.util.JsfUtil;
 import br.gleywson.modelo.Avaliacao;
 import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.dao.AvaliacaoFacade;
@@ -26,16 +27,15 @@ public class AvaliacaoBean implements Serializable {
 
     private Pesquisa pesquisa;
     private List<Pesquisa> pesquisas;
-    
+
     private List<Avaliacao> avaliacoes;
     private Avaliacao avaliacao;
-    
+
     @EJB
     private PesquisaFacade pesquisaFacade;
     @EJB
     private AvaliacaoFacade avaliacaoFacade;
 
-   
     @PostConstruct
     public void init() {
         pesquisas = pesquisaFacade.findAll();
@@ -70,8 +70,13 @@ public class AvaliacaoBean implements Serializable {
     }
 
     public void remover() {
-        avaliacaoFacade.remove(avaliacao);
-        atualizaAvaliacoesPorPesquisa();
+        try {
+            avaliacaoFacade.remove(avaliacao);
+            atualizaAvaliacoesPorPesquisa();
+            JsfUtil.addMessage("Excluído com sucesso!");
+        } catch (Exception e) {
+            JsfUtil.addMessage("Não foi possível excluir avaliação! \n" + e.getMessage());
+        }
     }
-    
+
 }

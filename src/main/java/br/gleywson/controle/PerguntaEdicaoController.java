@@ -47,8 +47,12 @@ public class PerguntaEdicaoController {
     }
 
     public void atualizar() {
-        perguntaFacade.edit(pergunta);
-        JsfUtil.addMessage("Pergunta atualizada com sucesso!");
+        if (pergunta.getId() != null) {
+            perguntaFacade.edit(pergunta);
+            JsfUtil.addMessage("Pergunta atualizada com sucesso!");
+        } else {
+            JsfUtil.addMessage("Selecione uma pergunta para editar");
+        }
     }
 
     public Pesquisa getPesquisa() {

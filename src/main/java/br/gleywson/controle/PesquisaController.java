@@ -56,6 +56,10 @@ public class PesquisaController {
         return this.pesquisas;
     }
     
+    public List<Pesquisa> getPesquisasAtivas() {
+        return pesquisaFacade.findAllActive();
+    }
+    
     public void remover() {
         try {
             pesquisaFacade.remove(pesquisa);

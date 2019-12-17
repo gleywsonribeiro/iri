@@ -55,6 +55,8 @@ public class PerguntaController {
     public void salvar() {
 
         pergunta.setPesquisa(pesquisa);
+        pesquisa.getPerguntas().add(pergunta);
+        
         if (pergunta.getId() == null) {
             if (pergunta.getTipo() == Tipo.AUTOMATICO) {
                 geraOptions();
@@ -117,7 +119,7 @@ public class PerguntaController {
         return Tipo.values();
     }
 
-    public void geraOptions() {
+    private void geraOptions() {
         //limpa a lista de opcoes antes
         pergunta.getOpcoes().clear();
 

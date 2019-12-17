@@ -16,8 +16,8 @@
                         <p:menuitem id="avaliacao" value="Realizar Avaliação" icon="&#xE14F;" outcome="/avaliacao/pesquisas"/>
                         <p:submenu id="menu_pesquisa" label="Gestão de Pesquisas" icon="&#xe32c;" rendered="#{loginController.administrador}">
                             <f:attribute name="badge" value="#{pesquisaController.pesquisas.size()}" />
-                            <p:menuitem id="pesquisa" value="Criar Pesquisa" icon="&#xE890;" outcome="/pesquisa/cadastro" />
-                            <p:menuitem id="pergunta" value="Criar Perguntas" icon="&#xe8af;" outcome="/pesquisa/perguntas" />
+                            <p:menuitem id="pesquisa" value="Pesquisas" icon="&#xE890;" outcome="/pesquisa/cadastro" />
+                            <p:menuitem id="pergunta" value="Perguntas" icon="&#xe8af;" outcome="/pesquisa/perguntas" />
                             <p:menuitem id="pergunta_edt" value="Ajustar Perguntas" icon="&#xE890;" outcome="/pesquisa/perguntas_edicao" />
                             <p:menuitem id="avaliacoes" value="Avaliações" icon="&#128203;" outcome="/avaliacao/avaliacoes" />
                         </p:submenu>

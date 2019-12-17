@@ -20,22 +20,22 @@
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank form-group">
 
                             <h4>Pesquisa</h4>
-                                <p:selectOneMenu id="pesquisa" value="#{perguntaController.pesquisa}" style="margin-bottom:10px;"
-                                                 required="true" requiredMessage="Escolha uma pesquisa" converter="pesquisaConverter">
-                                    <f:selectItem itemLabel="Selecione"/>
-                                    <f:selectItems var="pesquisa" value="#{pesquisaController.pesquisas}" itemLabel="#{pesquisa.descricao}" itemValue="#{pesquisa}"/>
-                                </p:selectOneMenu>
+                            <p:selectOneMenu id="pesquisa" value="#{perguntaController.pesquisa}" style="margin-bottom:10px;"
+                                             required="true" requiredMessage="Escolha uma pesquisa" converter="pesquisaConverter">
+                                <f:selectItem itemLabel="Selecione"/>
+                                <f:selectItems var="pesquisa" value="#{pesquisaController.pesquisas}" itemLabel="#{pesquisa.descricao}" itemValue="#{pesquisa}"/>
+                            </p:selectOneMenu>
 
-                                <h:panelGroup styleClass="md-inputfield">
-                                    <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" />
-                                    <label>Pergunta</label>
-                                </h:panelGroup>
+                            <h:panelGroup styleClass="md-inputfield">
+                                <p:inputText id="descricao" value="#{perguntaController.pergunta.descricao}" required="true" requiredMessage="Pergunta é necessária" />
+                                <label>Pergunta</label>
+                            </h:panelGroup>
 
-                                <h4>Tipo: </h4>
-                                <p:selectOneRadio id="tipo" value="#{perguntaController.pergunta.tipo}" layout="responsive" columns="2">
-                                    <f:selectItems value="#{perguntaController.listaTipos()}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>
-                                    <p:ajax event="change" process="@this" update="form" immediate="true"/>
-                                </p:selectOneRadio>
+                            <h4>Tipo: </h4>
+                            <p:selectOneRadio id="tipo" value="#{perguntaController.pergunta.tipo}" layout="responsive" columns="2">
+                                <f:selectItems value="#{perguntaController.listaTipos()}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>
+                                <p:ajax event="change" process="@this" update="form" immediate="true"/>
+                            </p:selectOneRadio>
 
                             <h:panelGroup id="iri" rendered="#{perguntaController.pergunta.tipo eq 'AUTOMATICO'}">
                                 <h:panelGroup>
@@ -82,18 +82,6 @@
                                          process="@this pesquisa descricao tipo iri" action="#{perguntaController.salvar()}" update="@form"/>
 
                     </div>
-                    <div class="card card-w-title">
-                        <h1>Perguntas</h1>
-                        <p:panelGrid columns="1" style="margin-bottom:10px" layout="grid" styleClass="form-group ui-panelgrid-blank">
-                            <p:dataList value="#{perguntaController.perguntas}" var="pergunta" type="ordered">
-                                <f:facet name="header">
-                                    Perguntas
-                                </f:facet>
-                                #{pergunta.descricao}
-                            </p:dataList>
-                        </p:panelGrid>
-                    </div>
-
                 </div>
             </div>
         </h:form>    

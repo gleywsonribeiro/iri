@@ -6,8 +6,10 @@
 package br.gleywson.modelo.dao;
 
 import br.gleywson.modelo.Pesquisa;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,11 @@ public class PesquisaFacade extends AbstractFacade<Pesquisa> {
 
     public PesquisaFacade() {
         super(Pesquisa.class);
+    }
+    
+    public List<Pesquisa> findAllActive() {
+        Query query = getEntityManager().createQuery("SELECT P FROM Pesquisa AS P WHERE P.ativo = :ativo").setParameter("ativo", true);
+        return query.getResultList();
     }
     
 }

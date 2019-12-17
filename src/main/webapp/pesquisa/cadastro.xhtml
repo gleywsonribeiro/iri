@@ -48,12 +48,12 @@
                             <p:column headerText="Descrição">
                                 <h:outputText value="#{pesquisa.descricao}"/>
                             </p:column>
-                            <p:column style="text-align: center">
+                            <p:column style="text-align: center" headerText="Editar">
                                 <p:commandButton icon="fa fa-edit" update="cadastro" process="@this">
                                     <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
                                 </p:commandButton>
                             </p:column>
-                            <p:column style="text-align: center">
+                            <p:column style="text-align: center" headerText="Excluir">
                                 <p:commandButton icon="fa fa-trash" action="#{pesquisaController.remover()}" update="cadastro:dados:table" process="@this">
                                     <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
                                     <p:confirm header="Alerta" message="Excluir a pesquisa remove todas as perguntas associadas a ela. Confirma a exclusão?" icon="fa fa-exclamation-triangle" />

@@ -26,7 +26,7 @@ public class PesquisaConverter implements Converter {
     
      private PesquisaFacade getFacade() {
         try {
-            return (PesquisaFacade) new InitialContext().lookup("java:global/template/PesquisaFacade"); //[java:global/template/PerguntaFacade!br.gleywson.modelo.dao.PerguntaFacade, java:global/template/PerguntaFacade]
+            return (PesquisaFacade) new InitialContext().lookup("java:global/iri/PesquisaFacade"); //[java:global/template/PerguntaFacade!br.gleywson.modelo.dao.PerguntaFacade, java:global/template/PerguntaFacade]
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex);
         }

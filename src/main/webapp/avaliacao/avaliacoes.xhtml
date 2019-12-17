@@ -26,7 +26,7 @@
                             <p:ajax event="change" listener="#{avaliacaoBean.atualizaAvaliacoesPorPesquisa()}" update="formEdicao:listaAvaliacao"/>
                         </p:selectOneMenu>
 
-                        <p:dataTable id="listaAvaliacao" value="#{avaliacaoBean.avaliacoes}" var="avaliacao">
+                        <p:dataTable id="listaAvaliacao" value="#{avaliacaoBean.avaliacoes}" var="avaliacao" emptyMessage="Não há registros.">
                             <p:column headerText="código" style="width: 100px">
                                 <h:outputText value="#{avaliacao.id}"/>
                             </p:column>
@@ -41,10 +41,14 @@
                             <p:column style="width: 50px; text-align: center">
                                 <p:commandButton icon="fa fa-trash" action="#{avaliacaoBean.remover()}" update="formEdicao:listaAvaliacao">
                                     <f:setPropertyActionListener target="#{avaliacaoBean.avaliacao}" value="#{avaliacao}" />
+                                    <p:confirm header="Alerta" message="Você está prestes a apagar uma avaliação. Está certo disso?" icon="fa fa-exclamation-triangle" />
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
-
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Tenho certeza" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+                            <p:commandButton value="Melhor não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+                        </p:confirmDialog>
                     </div>
 
 

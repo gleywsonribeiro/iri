@@ -24,7 +24,7 @@ public class PerguntaConverter implements Converter{
     
     private PerguntaFacade getFacade() {
         try {
-            return (PerguntaFacade) new InitialContext().lookup("java:global/template/PerguntaFacade"); //[java:global/template/PerguntaFacade!br.gleywson.modelo.dao.PerguntaFacade, java:global/template/PerguntaFacade]
+            return (PerguntaFacade) new InitialContext().lookup("java:global/iri/PerguntaFacade"); //[java:global/template/PerguntaFacade!br.gleywson.modelo.dao.PerguntaFacade, java:global/template/PerguntaFacade]
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex);
         }
