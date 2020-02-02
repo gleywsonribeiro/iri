@@ -28,7 +28,7 @@
                 <p>Use o menu lateral para realizar a pesquisa.</p>
             </h:panelGrid>
         </h:form>
-        <h:form rendered="#{loginController.administrador}">
+        <h:form rendered="#{ not loginController.administrador}">
             <div class="ui-g ui-fluid">
                 <p:growl autoUpdate="true"/>
                 <div class="ui-g-12 ui-md-6">

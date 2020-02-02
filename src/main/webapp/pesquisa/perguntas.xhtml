@@ -44,7 +44,8 @@
                                 </h:panelGroup>
 
                                 <h4>Qualificador</h4>
-                                <p:selectOneMenu id="qualificador" value="#{perguntaController.pergunta.qualificador}" style="margin-bottom:10px;">
+                                <p:selectOneMenu id="qualificador" value="#{perguntaController.pergunta.qualificador}" style="margin-bottom:10px;"
+                                                 required="true" requiredMessage="Escolha um qualificador de Empatia">
                                     <f:selectItem itemLabel="Selecione"/>
                                     <f:selectItems var="qualificador" value="#{perguntaController.listaQualificadores()}" itemLabel="#{qualificador} - #{qualificador.descricao}" itemValue="#{qualificador}"/>
                                 </p:selectOneMenu>
