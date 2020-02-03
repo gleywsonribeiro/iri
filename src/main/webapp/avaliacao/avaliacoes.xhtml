@@ -27,7 +27,7 @@
                         </p:selectOneMenu>
 
                         <p:dataTable id="listaAvaliacao" value="#{avaliacaoBean.avaliacoes}" var="avaliacao" emptyMessage="Não há registros.">
-                            <p:column headerText="código" style="width: 100px">
+                            <p:column headerText="código">
                                 <h:outputText value="#{avaliacao.id}"/>
                             </p:column>
                             <p:column headerText="Data/hora">
@@ -35,10 +35,10 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                                 </h:outputText>
                             </p:column>
-                            <p:column style="width: 50px; text-align: center">
+                            <p:column style="text-align: center">
                                 <p:commandButton icon="fa fa-pencil"/>
                             </p:column>
-                            <p:column style="width: 50px; text-align: center">
+                            <p:column style="text-align: center">
                                 <p:commandButton icon="fa fa-trash" action="#{avaliacaoBean.remover()}" update="formEdicao:listaAvaliacao">
                                     <f:setPropertyActionListener target="#{avaliacaoBean.avaliacao}" value="#{avaliacao}" />
                                     <p:confirm header="Alerta" message="Você está prestes a apagar uma avaliação. Está certo disso?" icon="fa fa-exclamation-triangle" />

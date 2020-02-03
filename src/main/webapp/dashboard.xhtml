@@ -28,10 +28,10 @@
                 <p>Use o menu lateral para realizar a pesquisa.</p>
             </h:panelGrid>
         </h:form>
-        <h:form rendered="#{ not loginController.administrador}">
+        <h:form rendered="#{loginController.administrador}">
             <div class="ui-g ui-fluid">
                 <p:growl autoUpdate="true"/>
-                <div class="ui-g-12 ui-md-6">
+                <div class="ui-g-12 ui-md-6" style="display: none">
                     <div class="card">
                         <h1 class="centerText">Análise de Dados</h1>
                     </div>
