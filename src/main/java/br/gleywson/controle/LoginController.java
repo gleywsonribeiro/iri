@@ -31,7 +31,7 @@ public class LoginController implements Serializable {
     }
 
     public String login() {
-        if (usuario.getLogin().equals("admin") && usuario.getSenha().equals("admin")) {
+        if (usuario.getLogin().toLowerCase().equals("admin") && usuario.getSenha().equals("admin")) {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession httpSession = (HttpSession) context.getExternalContext().getSession(false);
             //this.usuario = user;
