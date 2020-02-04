@@ -15,7 +15,9 @@
     <lifecycle>
         <phase-listener>br.gleywson.modelo.autorizacao.Autorizacao</phase-listener>
     </lifecycle>
-    
+    <factory>
+        <exception-handler-factory>br.gleywson.jsf.util.JsfExceptionHandlerFactory</exception-handler-factory>
+    </factory>
     <component>
         <component-type>org.primefaces.component.UltimaMenu</component-type>
         <component-class>org.primefaces.ultima.component.menu.UltimaMenu</component-class>

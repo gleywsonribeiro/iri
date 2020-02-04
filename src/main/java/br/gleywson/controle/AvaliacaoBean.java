@@ -68,6 +68,10 @@ public class AvaliacaoBean implements Serializable {
     public List<Avaliacao> getAvaliacoes() {
         return avaliacoes;
     }
+    
+    public int getTotalPesquisas() {
+        return avaliacaoFacade.count();
+    }
 
     public void remover() {
         try {
