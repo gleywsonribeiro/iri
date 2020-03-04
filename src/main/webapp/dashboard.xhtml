@@ -52,25 +52,9 @@
                     </div>
                 </div>
             </div>
+            <p:commandButton value="gerar" action="#{tabelaController.geraExcel()}" />
         </h:form>
 
-
-        <p:dataTable value="#{tabelaController.respostas}" var="resposta" scrollable="true" scrollHeight="200">
-            <p:column headerText="Pesquisa">
-                <h:outputText value="#{resposta.avaliacao.pesquisa.descricao}"/>
-            </p:column>
-            <p:column headerText="Avaliação">
-                <h:outputText value="#{resposta.avaliacao.id}"/>
-            </p:column>
-            <p:column headerText="Pergunta">
-                <h:outputText value="#{resposta.pergunta.descricao}"/>
-            </p:column>
-            
-            <p:column headerText="Opção">
-                <h:outputText value="#{resposta.opcao.descricao}"/>
-            </p:column>
-            
-        </p:dataTable>
 
     </ui:define>
 
