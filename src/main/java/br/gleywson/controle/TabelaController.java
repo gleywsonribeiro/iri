@@ -90,8 +90,11 @@ public class TabelaController implements Serializable {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("arquivo");
         
+        
+        
         for (Avaliacao avaliacao : avaliacoes) {
-            avaliacao.getRespostas().stream().filter(r -> )
+           avaliacao.getRespostas().stream().sorted((p1, p2) -> p1.getPergunta().getId().compareTo(p2.getPergunta().getId()));
+                   
         }
 
 //        int rownum = 0;
@@ -133,10 +136,9 @@ public class TabelaController implements Serializable {
         String file = "C:\\Users\\Gleywson\\Desktop\\teste.xls";
         File arquivo = new File(file);
         arquivo.createNewFile();
-        FileOutputStream outputStream = new FileOutputStream(arquivo);
-        workbook.write(outputStream);
-
-        outputStream.close();
+        try (FileOutputStream outputStream = new FileOutputStream(arquivo)) {
+            workbook.write(outputStream);
+        }
 
     }
 
