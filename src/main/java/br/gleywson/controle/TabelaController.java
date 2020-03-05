@@ -93,7 +93,8 @@ public class TabelaController implements Serializable {
         
         
         for (Avaliacao avaliacao : avaliacoes) {
-           avaliacao.getRespostas().stream().sorted((p1, p2) -> p1.getPergunta().getId().compareTo(p2.getPergunta().getId()));
+           avaliacao.getRespostas().stream().sorted((p1, p2) -> p1.getPergunta().getId().compareTo(p2.getPergunta().getId()))
+                   .forEach(p -> System.out.println(p.getPergunta().getDescricao() + " - " + p.getOpcao().getDescricao()));
                    
         }
 
