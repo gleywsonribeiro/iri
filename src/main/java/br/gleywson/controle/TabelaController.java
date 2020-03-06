@@ -28,9 +28,15 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 
 /**
@@ -75,72 +81,68 @@ public class TabelaController implements Serializable {
         return respostas;
     }
 
-    public void teste() {
-        Map<Pergunta, Opcao> mapa = new HashMap<Pergunta, Opcao>();
-        for (Avaliacao avaliacao : avaliacoes) {
-            for (Resposta resposta : avaliacao.getRespostas()) {
-                mapa.put(resposta.getPergunta(), resposta.getOpcao());
-            }
-        }
-    }
-
     public void geraExcel() throws IOException {
-        avaliacoes = dao.getAvaliacoesPorPesquisa(pf.find(3L));
-        Pesquisa pesquisa = avaliacoes.get(0).getPesquisa();
+        avaliacoes = dao.getAvaliacoesPorPesquisa(pf.find(1L));
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("arquivo");
-        
-        
-        
+
+        avaliacoes.forEach((avaliacao) -> {
+            avaliacao.getRespostas().sort((p1, p2) -> p1.getPergunta().getDescricao().compareTo(p2.getPergunta().getDescricao()));
+        });
+
+        int line = 1;
+        int coluna = 0;
+
+        //cabecalho
+        Row cabecalho = sheet.createRow(line - 1);
+        for (Resposta resposta : avaliacoes.get(0).getRespostas()) {
+            Cell celula = cabecalho.createCell(coluna++);
+            celula.setCellValue(resposta.getPergunta().getDescricao());
+            CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+            Font font = sheet.getWorkbook().createFont();
+            font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+
+            cellStyle.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
+            cellStyle.setFont(font);
+            celula.setCellStyle(cellStyle);
+        }
+        //corpo da tabela
         for (Avaliacao avaliacao : avaliacoes) {
-           avaliacao.getRespostas().stream().sorted((p1, p2) -> p1.getPergunta().getId().compareTo(p2.getPergunta().getId()))
-                   .forEach(p -> System.out.println(p.getPergunta().getDescricao() + " - " + p.getOpcao().getDescricao()));
-                   
-        }
-
-//        int rownum = 0;
-//        int colnum = 0;
-//
-//        Row linha = sheet.createRow(0);
-//
-//        for (int i = 0; i < avaliacoes.get(0).getPesquisa().getPerguntas().size(); i++) {
-//            Cell cell = linha.createCell(i);
-//            cell.setCellValue(avaliacoes.get(0).getPesquisa().getPerguntas().get(i).getDescricao());
-//        }
-//
-//        for (int line = 1, i = 0; i < avaliacoes.size(); i++, line++) {
-//            linha = sheet.createRow(line);
-//            for (int j = 0; j < avaliacoes.get(i).getRespostas().size(); j++) {
-//                Cell cell = linha.createCell(j);
-//                cell.setCellValue(avaliacoes.get(i).getRespostas().get(j).getOpcao().getDescricao());
-//            }
-//
-//        }
-//       -------------
-        
-        for (int i = 1; i < avaliacoes.size(); i++) {
-            if (i == 1) {
-                Row header = sheet.createRow(i - 1);
-                for (int j = 0; j < avaliacoes.get(i).getRespostas().size(); j++) {
-                    Cell cell = header.createCell(j);
-                    cell.setCellValue(avaliacoes.get(i).getRespostas().get(j).getPergunta().getDescricao());
-                }
+            Row linha = sheet.createRow(line++);
+            int col = 0;
+            for (Resposta resposta : avaliacao.getRespostas()) {
+                Cell celula = linha.createCell(col++);
+                celula.setCellValue(resposta.getOpcao().getDescricao());
             }
-            Row linha = sheet.createRow(i);
-            for (int j = 0; j < avaliacoes.get(i).getRespostas().size(); j++) {
-                Cell cell = linha.createCell(j);
-                cell.setCellValue(avaliacoes.get(i).getRespostas().get(j).getOpcao().getDescricao());
+        }
+
+        int quantidadeColunas = sheet.getRow(0).getPhysicalNumberOfCells();
+        for (int i = 0; i < quantidadeColunas; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-disposition", "attachment; filename=dados.xls");
+
+        try {
+            try (ServletOutputStream out = response.getOutputStream()) {
+                workbook.write(out);
+                out.flush();
             }
-
-        }
-//       -------------
-        String file = "C:\\Users\\Gleywson\\Desktop\\teste.xls";
-        File arquivo = new File(file);
-        arquivo.createNewFile();
-        try (FileOutputStream outputStream = new FileOutputStream(arquivo)) {
-            workbook.write(outputStream);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
+        FacesContext faces = FacesContext.getCurrentInstance();
+        faces.responseComplete();
+
+//        String file = "C:\\Users\\Gleywson\\Desktop\\teste.xls";
+//        File arquivo = new File(file);
+//        arquivo.createNewFile();
+//        try (FileOutputStream outputStream = new FileOutputStream(arquivo)) {
+//            workbook.write(outputStream);
+//        }
     }
 
 }
