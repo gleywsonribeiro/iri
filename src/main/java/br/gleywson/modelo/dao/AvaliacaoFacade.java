@@ -7,6 +7,7 @@ package br.gleywson.modelo.dao;
 
 import br.gleywson.modelo.Avaliacao;
 import br.gleywson.modelo.Pesquisa;
+import br.gleywson.modelo.Tipo;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,6 +35,14 @@ public class AvaliacaoFacade extends AbstractFacade<Avaliacao> {
     public List<Avaliacao> getAvaliacoesPorPesquisa(Pesquisa pesquisa) {
         Query query = em.createQuery("SELECT a FROM Avaliacao AS a WHERE A.pesquisa = :pesquisa", Avaliacao.class);
         query.setParameter("pesquisa", pesquisa);
+        return query.getResultList();
+    }
+    
+    public List<Avaliacao> getVariaveisCategoricas(Pesquisa pesquisa) {
+        Query query = em.createQuery("SELECT a FROM Avaliacao AS a INNER JOIN a.respostas r INNER JOIN r.pergunta p WHERE A.pesquisa = :pesquisa and p.tipo = :tipo",
+                Avaliacao.class);
+        query.setParameter("pesquisa", pesquisa);
+        query.setParameter("tipo", Tipo.NORMAL);
         return query.getResultList();
     }
 }

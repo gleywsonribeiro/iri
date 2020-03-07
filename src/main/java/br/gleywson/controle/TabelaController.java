@@ -82,14 +82,14 @@ public class TabelaController implements Serializable {
     }
 
     public void geraExcel() throws IOException {
-        avaliacoes = dao.getAvaliacoesPorPesquisa(pf.find(1L));
+        avaliacoes = dao.getVariaveisCategoricas(pf.find(1L));
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("arquivo");
 
         avaliacoes.forEach((avaliacao) -> {
             avaliacao.getRespostas().sort((p1, p2) -> p1.getPergunta().getDescricao().compareTo(p2.getPergunta().getDescricao()));
         });
-
+        
         int line = 1;
         int coluna = 0;
 
@@ -106,6 +106,18 @@ public class TabelaController implements Serializable {
             cellStyle.setFont(font);
             celula.setCellStyle(cellStyle);
         }
+        Cell cell = cabecalho.createCell(coluna++);
+        cell.setCellValue("PT");
+        
+        cell = cabecalho.createCell(coluna++);
+        cell.setCellValue("PD");
+        
+        cell = cabecalho.createCell(coluna++);
+        cell.setCellValue("EC");
+        
+        cell = cabecalho.createCell(coluna++);
+        cell.setCellValue("EC");
+        
         //corpo da tabela
         for (Avaliacao avaliacao : avaliacoes) {
             Row linha = sheet.createRow(line++);
@@ -137,12 +149,6 @@ public class TabelaController implements Serializable {
         FacesContext faces = FacesContext.getCurrentInstance();
         faces.responseComplete();
 
-//        String file = "C:\\Users\\Gleywson\\Desktop\\teste.xls";
-//        File arquivo = new File(file);
-//        arquivo.createNewFile();
-//        try (FileOutputStream outputStream = new FileOutputStream(arquivo)) {
-//            workbook.write(outputStream);
-//        }
     }
 
 }
