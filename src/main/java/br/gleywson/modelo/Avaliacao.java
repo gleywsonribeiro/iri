@@ -93,7 +93,32 @@ public class Avaliacao implements Serializable {
     public void setRespostas(List<Resposta> respostas) {
         this.respostas = respostas;
     }
+    
+    public int getPT() {
+        return somaEscala(Qualificador.PT);
+    }
+    
+    public int getPD() {
+        return somaEscala(Qualificador.PD);
+    }
+    
+    public int getEC() {
+        return somaEscala(Qualificador.EC);
+    }
+    
+    public int getFS() {
+        return somaEscala(Qualificador.FS);
+    }
 
+    private int somaEscala(Qualificador qualificador) {
+        int acumulador = 0;
+        for (Resposta resposta : respostas) {
+            if(resposta.getPergunta().getQualificador() == qualificador) {
+                acumulador += resposta.getOpcao().getPeso();
+            }
+        }
+        return acumulador;
+    }     
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set

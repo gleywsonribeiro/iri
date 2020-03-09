@@ -6,23 +6,16 @@
 package br.gleywson.controle;
 
 import br.gleywson.modelo.Avaliacao;
-import br.gleywson.modelo.Opcao;
 import br.gleywson.modelo.Pergunta;
-import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.Resposta;
 import br.gleywson.modelo.dao.AvaliacaoFacade;
 import br.gleywson.modelo.dao.PerguntaFacade;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import br.gleywson.modelo.dao.RespostaFacade;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -89,7 +82,7 @@ public class TabelaController implements Serializable {
         avaliacoes.forEach((avaliacao) -> {
             avaliacao.getRespostas().sort((p1, p2) -> p1.getPergunta().getDescricao().compareTo(p2.getPergunta().getDescricao()));
         });
-        
+
         int line = 1;
         int coluna = 0;
 
@@ -106,18 +99,31 @@ public class TabelaController implements Serializable {
             cellStyle.setFont(font);
             celula.setCellStyle(cellStyle);
         }
+
+//        Estilo
+        CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
+        Font font = sheet.getWorkbook().createFont();
+        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+
+        cellStyle.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
+        cellStyle.setFont(font);
+
         Cell cell = cabecalho.createCell(coluna++);
         cell.setCellValue("PT");
-        
+        cell.setCellStyle(cellStyle);
+
         cell = cabecalho.createCell(coluna++);
         cell.setCellValue("PD");
-        
+        cell.setCellStyle(cellStyle);
+
         cell = cabecalho.createCell(coluna++);
         cell.setCellValue("EC");
-        
+        cell.setCellStyle(cellStyle);
+
         cell = cabecalho.createCell(coluna++);
-        cell.setCellValue("EC");
-        
+        cell.setCellValue("FS");
+        cell.setCellStyle(cellStyle);
+
         //corpo da tabela
         for (Avaliacao avaliacao : avaliacoes) {
             Row linha = sheet.createRow(line++);
@@ -126,6 +132,18 @@ public class TabelaController implements Serializable {
                 Cell celula = linha.createCell(col++);
                 celula.setCellValue(resposta.getOpcao().getDescricao());
             }
+            Cell celula = linha.createCell(col++);
+            celula.setCellValue(0);
+
+            celula = linha.createCell(col++);
+            celula.setCellValue(1);
+
+            celula = linha.createCell(col++);
+            celula.setCellValue(2);
+
+            celula = linha.createCell(col++);
+            celula.setCellValue(3);
+
         }
 
         int quantidadeColunas = sheet.getRow(0).getPhysicalNumberOfCells();
@@ -149,6 +167,11 @@ public class TabelaController implements Serializable {
         FacesContext faces = FacesContext.getCurrentInstance();
         faces.responseComplete();
 
+    }
+    
+    public void testeFS() {
+        Avaliacao avaliacao = dao.find(10L);
+        avaliacao.getFS();
     }
 
 }
