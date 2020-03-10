@@ -48,16 +48,20 @@
                             <p:column headerText="Descrição">
                                 <h:outputText value="#{pesquisa.descricao}"/>
                             </p:column>
-                            <p:column style="text-align: center" headerText="Editar">
-                                <p:commandButton icon="fa fa-edit" update="cadastro" process="@this">
+                            <p:column style="text-align: center">
+                                <p:commandButton id="exportar" icon="fa fa-file-excel-o" process="@this" styleClass="green-btn"
+                                                 immediate="true" action="#{pesquisaController.exportar()}" ajax="false">
                                     <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
                                 </p:commandButton>
+                                <p:tooltip for="exportar" value="Baixar pesquisa"/>
                             </p:column>
-                            <p:column style="text-align: center" headerText="Excluir">
-                                <p:commandButton icon="fa fa-trash" action="#{pesquisaController.remover()}" update="cadastro:dados:table" process="@this">
+                            <p:column style="text-align: center">
+                                <p:commandButton id="remover" icon="fa fa-trash" action="#{pesquisaController.remover()}" styleClass="red-btn"
+                                                 update="cadastro:dados:table" process="@this">
                                     <f:setPropertyActionListener target="#{pesquisaController.pesquisa}" value="#{pesquisa}"/>
                                     <p:confirm header="Alerta" message="Excluir a pesquisa remove todas as perguntas associadas a ela. Confirma a exclusão?" icon="fa fa-exclamation-triangle" />
                                 </p:commandButton>
+                                <p:tooltip for="remover" value="Remover pesquisa"/>
                             </p:column>
                         </p:dataTable>
 
