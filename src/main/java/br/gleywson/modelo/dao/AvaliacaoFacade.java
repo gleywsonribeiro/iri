@@ -38,11 +38,4 @@ public class AvaliacaoFacade extends AbstractFacade<Avaliacao> {
         return query.getResultList();
     }
     
-    public List<Avaliacao> getVariaveisCategoricas(Pesquisa pesquisa) {
-        Query query = em.createQuery("SELECT a FROM Avaliacao AS a INNER JOIN a.respostas r INNER JOIN r.pergunta p WHERE A.pesquisa = :pesquisa and p.tipo = :tipo",
-                Avaliacao.class);
-        query.setParameter("pesquisa", pesquisa);
-        query.setParameter("tipo", Tipo.NORMAL);
-        return query.getResultList();
-    }
 }
