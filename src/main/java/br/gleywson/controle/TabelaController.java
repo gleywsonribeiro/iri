@@ -75,7 +75,7 @@ public class TabelaController implements Serializable {
     }
 
     public void geraExcel() throws IOException {
-        avaliacoes = dao.getVariaveisCategoricas(pf.find(1L));
+        avaliacoes = dao.getVariaveisCategoricas(pf.find(3L));
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("arquivo");
 
@@ -132,17 +132,17 @@ public class TabelaController implements Serializable {
                 Cell celula = linha.createCell(col++);
                 celula.setCellValue(resposta.getOpcao().getDescricao());
             }
-            Cell celula = linha.createCell(col++);
-            celula.setCellValue(0);
-
-            celula = linha.createCell(col++);
-            celula.setCellValue(1);
-
-            celula = linha.createCell(col++);
-            celula.setCellValue(2);
-
-            celula = linha.createCell(col++);
-            celula.setCellValue(3);
+//            Cell celula = linha.createCell(col++);
+//            celula.setCellValue(avaliacao.getPT());
+//
+//            celula = linha.createCell(col++);
+//            celula.setCellValue(avaliacao.getPD());
+//
+//            celula = linha.createCell(col++);
+//            celula.setCellValue(avaliacao.getEC());
+//
+//            celula = linha.createCell(col++);
+//            celula.setCellValue(avaliacao.getFS());
 
         }
 
@@ -169,9 +169,5 @@ public class TabelaController implements Serializable {
 
     }
     
-    public void testeFS() {
-        Avaliacao avaliacao = dao.find(10L);
-        avaliacao.getFS();
-    }
-
+   
 }
