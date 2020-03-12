@@ -27,7 +27,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
-import org.eclipse.persistence.exceptions.DatabaseException;
 
 /**
  *
@@ -102,7 +101,7 @@ public class PesquisaController {
         for (Resposta resposta : avaliacoes.get(0).getRespostas()) {
             Cell celula = cabecalho.createCell(coluna++);
             if (resposta.getPergunta().getTipo().equals(Tipo.AUTOMATICO)) {
-                String[] valor = resposta.getPergunta().getDescricao().split(".");
+                String[] valor = resposta.getPergunta().getDescricao().split(" ");
                 celula.setCellValue(valor[0]);
             } else {
                 celula.setCellValue(resposta.getPergunta().getDescricao());
