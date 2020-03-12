@@ -9,6 +9,7 @@ import br.gleywson.jsf.util.JsfUtil;
 import br.gleywson.modelo.Avaliacao;
 import br.gleywson.modelo.Pesquisa;
 import br.gleywson.modelo.Resposta;
+import br.gleywson.modelo.Tipo;
 import br.gleywson.modelo.dao.AvaliacaoFacade;
 import br.gleywson.modelo.dao.PesquisaFacade;
 import java.io.IOException;
@@ -42,15 +43,13 @@ public class PesquisaController {
     private PesquisaFacade pesquisaFacade;
     @EJB
     private AvaliacaoFacade dao;
-    
-    
-    
+
     public PesquisaController() {
         pesquisa = new Pesquisa();
     }
-    
+
     public void salvar() {
-        if(pesquisa.getId() == null) {
+        if (pesquisa.getId() == null) {
             pesquisaFacade.create(pesquisa);
             JsfUtil.addMessage("Salvo com sucesso!");
         } else {
@@ -72,11 +71,11 @@ public class PesquisaController {
         this.pesquisas = pesquisaFacade.findAll();
         return this.pesquisas;
     }
-    
+
     public List<Pesquisa> getPesquisasAtivas() {
         return pesquisaFacade.findAllActive();
     }
-    
+
     public void remover() {
         try {
             pesquisaFacade.remove(pesquisa);
@@ -85,14 +84,14 @@ public class PesquisaController {
             JsfUtil.addErrorMessage("Existem avaliações para esta pesquisa.");
         }
     }
-    
+
     public void exportar() throws IOException {
         List<Avaliacao> avaliacoes = dao.getAvaliacoesPorPesquisa(pesquisaFacade.find(pesquisa.getId()));
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("tabulacao");
 
         avaliacoes.forEach((avaliacao) -> {
-            avaliacao.getRespostas().sort((p1, p2) -> p1.getPergunta().getDescricao().compareTo(p2.getPergunta().getDescricao()));
+            avaliacao.getRespostas().sort((p1, p2) -> p1.getPergunta().getId().compareTo(p2.getPergunta().getId()));
         });
 
         int line = 1;
@@ -102,7 +101,13 @@ public class PesquisaController {
         Row cabecalho = sheet.createRow(line - 1);
         for (Resposta resposta : avaliacoes.get(0).getRespostas()) {
             Cell celula = cabecalho.createCell(coluna++);
-            celula.setCellValue(resposta.getPergunta().getDescricao());
+            if (resposta.getPergunta().getTipo().equals(Tipo.AUTOMATICO)) {
+                String[] valor = resposta.getPergunta().getDescricao().split(".");
+                celula.setCellValue(valor[0]);
+            } else {
+                celula.setCellValue(resposta.getPergunta().getDescricao());
+            }
+            
             CellStyle cellStyle = sheet.getWorkbook().createCellStyle();
             Font font = sheet.getWorkbook().createFont();
             font.setBoldweight(Font.BOLDWEIGHT_BOLD);
@@ -180,5 +185,5 @@ public class PesquisaController {
         faces.responseComplete();
 
     }
-    
+
 }
